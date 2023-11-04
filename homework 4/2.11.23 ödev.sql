@@ -77,7 +77,9 @@ SELECT products.product_name,products.unit_price, categories.category_name FROM 
 ON products.category_id= categories.category_id ORDER BY unit_price DESC LIMIT 1;
 
 --25. En çok satılan ürününün adı, kategorisinin adı ve tedarikçisinin adı
-SELECT products.product_name,products.unit_price, categories.category_name, suppliers.company_name
-FROM products INNER JOIN categories ON products.category_id= categories.category_id 
+SELECT products.product_name, categories.category_name, suppliers.company_name FROM products 
+INNER JOIN categories ON products.category_id= categories.category_id
 INNER JOIN suppliers ON products.supplier_id = suppliers.supplier_id
-ORDER BY unit_price DESC LIMIT 1;
+INNER JOIN order_details ON products.product_id = order_details.product_id
+GROUP BY products.product_id, categories.category_name, suppliers.company_name 
+ORDER BY SUM(order_details.quantity)   DESC  LIMIT 1;
