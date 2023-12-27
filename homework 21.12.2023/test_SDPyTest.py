@@ -17,7 +17,7 @@ class Test_DemoClass:
         self.driver.quit()
 
     @pytest.mark.parametrize("add,remove",[("add-to-cart-sauce-labs-backpack","remove-sauce-labs-backpack"),("add-to-cart-sauce-labs-bike-light","remove-sauce-labs-bike-light"),("add-to-cart-sauce-labs-onesie","remove-sauce-labs-onesie")])
-    def test_error_login(self,add,remove):
+    def test_error_user(self,add,remove):
         usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"user-name")))
         usernameInput.send_keys("error_user")
         passwordInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.ID,"password")))
@@ -63,6 +63,8 @@ class Test_DemoClass:
         cartSize =WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, "//*[@id='shopping_cart_container']/a/span")))
         assert cartSize.text =="1"
 
+        
+        
         
 
        # self.driver.execute_script("window.scrollTo(0,500)") #penceremin scrolunu aşağıya indiriyor,verdiğim koordinatlarla birlikte
