@@ -26,5 +26,26 @@ class Test_tobeto:
         errorMessage = self.driver.find_element(By.XPATH,"//*[@id='__next']/div/main/section/div/div/div[1]/div/form/p[1]")
         assert errorMessage.text == "Doldurulması zorunlu alan*"
 
+    def test_loginSuccessful(self):
+        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.NAME,"email")))
+        usernameInput.send_keys("testhesabi.fst@gmail.com")
+        passwordInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.NAME,"password")))
+        passwordInput.send_keys("tobeto123")
+        loginButton = self.driver.find_element(By.XPATH,"//*[@id='__next']/div/main/section/div/div/div[1]/div/form/button")
+        loginButton.click() 
+        Message = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH,"//div[@id='__next']/div/div[2]/div/div[2]"))) 
+        assert Message.text == "• Giriş başarılı."
+
+    def test_loginUnsuccessful(self):
+        usernameInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.NAME,"email")))
+        usernameInput.send_keys("testhesabi.fst")
+        passwordInput = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.NAME,"password")))
+        passwordInput.send_keys("tobeto123")
+        loginButton = self.driver.find_element(By.XPATH,"//*[@id='__next']/div/main/section/div/div/div[1]/div/form/button")
+        loginButton.click() 
+        Message = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH,"//*[@id='__next']/div/main/div[2]/div/div[2]"))) 
+        assert Message.text == "• Geçersiz e-posta veya şifre."
+
+
     
         
